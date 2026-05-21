@@ -80,11 +80,14 @@ JWT_SECRET=supersecretjwtkey123
 ```
 *(Note: A MongoDB Replica Set or MongoDB Atlas cluster is **required** to support Mongoose Transactions).*
 
-## Database Schemas Overview
-- **User**: Stores username, hashed password, role (`admin` or `user`), and `coins` balance.
-- **SpinWheel**: Tracks the game lifecycle (`status`: pending, active, completed, aborted), `totalPool`, `participants` array (with `isEliminated` flags), and the final `winner`.
-- **GameConfig**: Defines `entryFee`, `winnerPoolPercentage`, `adminPoolPercentage`, and `appPoolPercentage`.
-- **Transaction**: An immutable ledger recording all coin movements (types: `credit`, `debit`, `refund`, `payout`).
+## Database Schema
+
+This project utilizes **MongoDB** with **Mongoose** (an Object Data Modeling library). Because MongoDB is a NoSQL database, **no SQL migration scripts are required**. The database schema is defined structurally at the application level. 
+
+You can find the full, detailed schema documentation for all collections (User, SpinWheel, GameConfig, Transaction) in the dedicated file here:
+👉 **[`backend/database-schema.md`](./backend/database-schema.md)**
+
+The raw schema definition files are located in the `/backend/models/` directory.
 
 ## API Routes Overview
 - `POST /api/auth/register` - Register a new user
