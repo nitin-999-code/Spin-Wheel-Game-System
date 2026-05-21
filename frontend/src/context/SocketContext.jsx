@@ -10,7 +10,7 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (user) {
-      const newSocket = io('http://localhost:5005');
+      const newSocket = io(import.meta.env.VITE_SOCKET_URL || 'http://localhost:5005');
       setSocket(newSocket);
       return () => newSocket.close();
     }
