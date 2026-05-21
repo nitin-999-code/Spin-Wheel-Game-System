@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../utils/api';
 import { AuthContext } from '../context/AuthContext';
@@ -16,7 +16,7 @@ const Login = () => {
     e.preventDefault();
     setError('');
     try {
-      const endpoint = isRegister ? '/auth/register' : '/auth/login';
+      const endpoint = isRegister ? '/api/auth/register' : '/api/auth/login';
       const res = await api.post(endpoint, { username, password });
       login(res.data.token, res.data.user);
       navigate('/');

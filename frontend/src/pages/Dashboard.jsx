@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../utils/api';
 import { AuthContext } from '../context/AuthContext';
@@ -45,10 +45,10 @@ const Dashboard = () => {
     };
   }, [socket, navigate, fetchProfile]);
 
-  const fetchActiveWheel = async () => {
+  async function fetchActiveWheel() {
     try {
       setLoading(true);
-      const res = await api.get('/wheels/active');
+      const res = await api.get('/api/wheels/active');
       setActiveWheel(res.data.wheel);
       
       if (res.data.wheel && res.data.wheel.status === 'active') {
@@ -63,9 +63,9 @@ const Dashboard = () => {
     }
   };
 
-  const fetchLatestWheel = async () => {
+  async function fetchLatestWheel() {
     try {
-      const res = await api.get('/wheels/latest');
+      const res = await api.get('/api/wheels/latest');
       setLatestWheel(res.data.wheel);
     } catch (err) {
       console.error(err);
@@ -75,7 +75,7 @@ const Dashboard = () => {
   const handleCreateWheel = async () => {
     setError('');
     try {
-      await api.post('/wheels');
+      await api.post('/api/wheels');
       await fetchActiveWheel();
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to create wheel');
@@ -85,7 +85,7 @@ const Dashboard = () => {
   const handleJoinWheel = async () => {
     setError('');
     try {
-      await api.post(`/wheels/${activeWheel._id}/join`);
+      await api.post(`/api/wheels/${activeWheel._id}/join`);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to join wheel');
     }
@@ -94,7 +94,7 @@ const Dashboard = () => {
   const handleManualStart = async () => {
     setError('');
     try {
-      await api.post(`/wheels/${activeWheel._id}/start`);
+      await api.post(`/api/wheels/${activeWheel._id}/start`);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to start wheel');
     }

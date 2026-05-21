@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../utils/api';
 import { AuthContext } from '../context/AuthContext';
@@ -53,9 +53,9 @@ const WheelGame = () => {
     };
   }, [socket, navigate]);
 
-  const fetchActiveWheel = async () => {
+  async function fetchActiveWheel() {
     try {
-      const res = await api.get('/wheels/active');
+      const res = await api.get('/api/wheels/active');
       if (!res.data.wheel) {
         navigate('/');
         return;
